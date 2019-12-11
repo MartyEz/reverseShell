@@ -1,12 +1,19 @@
 # ReverseShellGo
 
 ## Motivations
-There is a variation in AV detection rate depending on the language used to make the payload and if the payload is widely spread
+There is a variation in AV detection rate depending on the language used to make the payload.
+
+The goal of this repo is to compare a reverseShell in Go with meterpreter reverseshell and C/Cpp reverseShell.
 
 This repo provide a reverseShell in GO targeting windows os which uses theses modules :
 - Keylogger : http://127.0.1.1/root/kbhook
 - Port Scanner : http://127.0.1.1/root/goscan 
 
+
+The server.go file is the attacker program which wait a connection from a client. 
+The client.go file is running on the target and connects to the server.
+
+After getting an etablished connection, server.go wait cmds on stdin and send it to the connected client.
 
 ## Features
 
@@ -18,7 +25,7 @@ This repo provide a reverseShell in GO targeting windows os which uses theses mo
 
 ## Commands
 
-Baics cmds and shell are using cmd.exe
+Baics cmds and shell are using cmd.exe. You can change it to use ps.exe
 
 - Basics commands
     - systeminfo
