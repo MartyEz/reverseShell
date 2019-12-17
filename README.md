@@ -25,9 +25,9 @@ After getting an etablished connection, server.go wait cmds on stdin and send it
 
 ## Commands
 
-Baics cmds and shell are using cmd.exe. You can change it to use ps.exe
+Baic cmds and shell are using cmd.exe. You can change it to use ps.exe
 
-- Basics commands
+- Basic commands
     - systeminfo
     - route
     - arp
