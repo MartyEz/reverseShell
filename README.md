@@ -6,8 +6,8 @@ There is a variation in AV detection rate depending on the language used to make
 The goal of this repo is to compare a reverseShell in Go with meterpreter reverseshell and C/Cpp reverseShell.
 
 This repo provide a reverseShell in GO targeting windows os which uses theses modules :
-- Keylogger : http://127.0.1.1/root/kbhook
-- Port Scanner : http://127.0.1.1/root/goscan 
+- Keylogger : https://github.com/MartyEz/KBHook
+- Port Scanner : https://github.com/MartyEz/goScan
 
 
 The server.go file is the attacker program which waits a connection from a client. 
