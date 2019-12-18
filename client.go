@@ -1,9 +1,9 @@
 package main
 
 import (
-	"KBHook"
+	"github.com/MartyEz/KBHook"
 	"fmt"
-	"goScan"
+	"github.com/MartyEz/goScan"
 	"io"
 	"log"
 	"net"
