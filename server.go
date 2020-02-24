@@ -28,7 +28,7 @@ func read(conn *net.Conn) {
 func main() {
 
 	// Setting up a connection listener
-	fmt.Println("Waiting victim connection\n")
+	fmt.Println("Waiting client connection\n")
 	ln, err := net.Listen("tcp", ":80")
 	if err != nil {
 		log.Fatal(err)
